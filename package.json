@@ -1,5 +1,5 @@
 {
-  "name": "Boardcamp",
+  "name": "boardcamp",
   "type": "module",
   "version": "1.0.0",
   "description": "\"# Boardcamp\"",
@@ -19,8 +19,19 @@
   },
   "homepage": "https://github.com/joseeandre/Boardcamp#readme",
   "dependencies": {
+    "@types/joi": "^17.2.3",
+    "@types/node": "^15.12.2",
     "cors": "^2.8.5",
+    "dayjs": "^1.10.5",
     "express": "^4.17.1",
-    "pg": "^8.6.0"
+    "joy": "^0.1.1",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.12",
+    "@types/pg": "^8.6.0"
   }
 }
