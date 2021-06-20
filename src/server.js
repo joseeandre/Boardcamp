@@ -328,7 +328,7 @@ server.post("/rentals/:id/return", async (req, res) => {
   const rentalId = req.params.id;
   const returnDate = dayjs().format("YYYY-MM-DD");
   try {
-    const rental = await connection.query(
+    const rental = await pool.query(
       "SELECT * FROM rentals WHERE id = $1",
       [rentalId]
     );
@@ -349,7 +349,7 @@ server.post("/rentals/:id/return", async (req, res) => {
     }
 
     res.sendStatus(200);
-    await connection.query(
+    await pool.query(
       `
           UPDATE rentals 
           SET "returnDate" = $1, "delayFee" = $2
@@ -364,11 +364,9 @@ server.post("/rentals/:id/return", async (req, res) => {
 });
 
 server.delete("/rentals/:id", async (req, res) => {
-  console.log("oi");
   const rentalId = req.params.id;
-  console.log(rentalId);
   try {
-      const rental = await connection.query('SELECT * FROM rentals WHERE id = $1', [rentalId]);
+      const rental = await pool.query('SELECT * FROM rentals WHERE id = $1', [rentalId]);
       console.log(rental.rows);
       if(rental.rows.length === 0){
           res.sendStatus(404);
@@ -376,7 +374,7 @@ server.delete("/rentals/:id", async (req, res) => {
       if(rental.rows[0].returnDate !== null){
           res.sendStatus(400);
       }
-      await connection.query('DELETE FROM rentals WHERE rentals.id = $1', [rentalId]);
+      await pool.query('DELETE FROM rentals WHERE rentals.id = $1', [rentalId]);
 
       res.sendStatus(200);
   } catch (error) {
